@@ -38,7 +38,7 @@ const BottomPanel: React.FC = () => {
   );
 
   const handlePressPrev = () => {
-    if (selectedVehicleIndex === -1 && nearestAvailableVehiclesIds.length) {
+    if (selectedVehicleIndex === -1 && nearestAvailableVehiclesIds?.length) {
       dispatchSetSelectedVehicleId(nearestAvailableVehiclesIds[0]);
     } else if (selectedVehicleIndex !== undefined && selectedVehicleIndex > 0) {
       dispatchSetSelectedVehicleId(
@@ -48,14 +48,14 @@ const BottomPanel: React.FC = () => {
   };
   const handlePressNext = () => {
     selectedVehicleIndex !== undefined &&
-      selectedVehicleIndex < nearestAvailableVehiclesIds.length - 1 &&
+      selectedVehicleIndex < nearestAvailableVehiclesIds?.length - 1 &&
       dispatchSetSelectedVehicleId(
         nearestAvailableVehiclesIds[selectedVehicleIndex + 1],
       );
   };
 
   useEffect(() => {
-    availableVehicles.length &&
+    availableVehicles?.length &&
       setNearestAvailableVehiclesIds(
         getIds(
           sortByDistance(filterByDistance(availableVehicles, LIMIT_DISTANCE)),
@@ -70,7 +70,7 @@ const BottomPanel: React.FC = () => {
 
   useEffect(() => {
     selectedVehicleId !== undefined &&
-      nearestAvailableVehiclesIds.length &&
+      nearestAvailableVehiclesIds?.length &&
       setSelectedVehicleIndex(
         nearestAvailableVehiclesIds.indexOf(selectedVehicleId),
       );
@@ -104,7 +104,7 @@ const BottomPanel: React.FC = () => {
           disabled={
             selectedVehicleIndex === undefined ||
             selectedVehicleIndex === -1 ||
-            selectedVehicleIndex >= nearestAvailableVehiclesIds.length - 1
+            selectedVehicleIndex >= nearestAvailableVehiclesIds?.length - 1
           }
           onPress={handlePressNext}
         />

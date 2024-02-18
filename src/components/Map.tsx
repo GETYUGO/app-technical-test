@@ -87,7 +87,7 @@ const Map: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (vehicles.length && currentPosition !== undefined) {
+    if (vehicles?.length && currentPosition !== undefined) {
       dispatchSetAvailableVehicles(
         addDistanceFromCoordinate(
           filterAvailableVehicles(vehicles),
@@ -116,7 +116,7 @@ const Map: React.FC = () => {
         showsUserLocation
         moveOnMarkerPress={false}
       >
-        {vehicles.length &&
+        {vehicles?.length &&
           vehicles.map(vehicle => {
             return (
               <VehicleMarker
