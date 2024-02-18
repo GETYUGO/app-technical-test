@@ -48,6 +48,10 @@ This is one way to run your app — you can also run it directly from within And
 
 # Additional comments
 
+#### NOTE: This app has been developed only for android devices.
+
+For iOS some additional features (like permissions requests) will need to be added.
+
 ## ToDo:
 
 - Create custom hooks for using redux dispatchers and selectors.
