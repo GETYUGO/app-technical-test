@@ -1,7 +1,4 @@
-// TODO: get API_KEY from env
-
-const RIDEYEGO_API_URL = 'https://lambda.rideyego.com/technical-test';
-const RIDEYEGO_API_KEY = 'qxECK0jBFkLEk4glKDHx3Z88mC11mUfxq7NMR2EY';
+import { RIDEYEGO_API_URL, RIDEYEGO_API_KEY } from '@env';
 
 export const getVehiclesList = async () => {
   try {
