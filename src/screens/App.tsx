@@ -1,28 +1,32 @@
 import React, { useEffect } from 'react';
-import { Platform, PermissionsAndroid } from 'react-native';
 import { SafeAreaView, StyleSheet, View, Text, StatusBar } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { enableLatestRenderer } from 'react-native-maps';
 
-import Color from '../../static/types/colors';
-
 import { requestLocationPermission } from '../helpers/permissions';
-import { useDispatch } from 'react-redux';
-import { PermissionsAction } from '../../static/types/permissions';
+import {
+  PermissionStatus,
+  PermissionsAction,
+} from '../../static/types/permissions';
+import Color from '../../static/types/colors';
 
 import Map from '../components/Map';
 import BottomPanel from '../components/BottomPanel';
 
 const App: React.FC = () => {
   enableLatestRenderer();
+
   const dispatch = useDispatch();
+  const dispatchSetLocationPermission = (permission: PermissionStatus) =>
+    dispatch({
+      type: PermissionsAction.SET_LOCATION_PERMISSION,
+      payload: { permission },
+    });
 
   useEffect(() => {
     (async () => {
       const locationPermission = await requestLocationPermission();
-      dispatch({
-        type: PermissionsAction.SET_LOCATION_PERMISSION,
-        payload: { permission: locationPermission },
-      });
+      dispatchSetLocationPermission(locationPermission);
     })();
   }, []);
 
