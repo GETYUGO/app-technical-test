@@ -6,25 +6,26 @@ import Geolocation from 'react-native-geolocation-service';
 
 import { selectSelectedVehicleId, selectVehicles } from '../selectors/vehicles';
 import { getVehiclesList } from '../services/rideyego-api';
-import { Vehicle, VehicleAction } from '../../static/types/vehicles';
 
 import { selectLocationPermission } from '../selectors/permissions';
 import {
   PermissionStatus,
   PermissionsAction,
 } from '../../static/types/permissions';
-
-import VehicleMarker from './VehicleMarker';
 import {
   addDistanceFromCoordinate,
   filterAvailableVehicles,
 } from '../helpers/vehicles-list';
+import { Vehicle, VehicleAction } from '../../static/types/vehicles';
+import { MAP_LATITUDE_DELTA } from '../../static/constants/distances';
+
+import VehicleMarker from './VehicleMarker';
 
 const { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
-const LATITUDE_DELTA = 0.03;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+const LONGITUDE_DELTA = MAP_LATITUDE_DELTA * ASPECT_RATIO;
 
 const Map: React.FC = () => {
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ const Map: React.FC = () => {
   const currentRegion = {
     latitude: currentPosition?.latitude || 0,
     longitude: currentPosition?.longitude || 0,
-    latitudeDelta: LATITUDE_DELTA,
+    latitudeDelta: MAP_LATITUDE_DELTA,
     longitudeDelta: LONGITUDE_DELTA,
   };
 
