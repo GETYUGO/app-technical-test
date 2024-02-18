@@ -4,16 +4,15 @@ import MapView, { PROVIDER_GOOGLE, LatLng } from 'react-native-maps';
 import { useDispatch, useSelector } from 'react-redux';
 import Geolocation from 'react-native-geolocation-service';
 
-import {
-  selectAvailableVehicles,
-  selectSelectedVehicleId,
-  selectVehicles,
-} from '../selectors/vehicles';
+import { selectSelectedVehicleId, selectVehicles } from '../selectors/vehicles';
 import { getVehiclesList } from '../services/rideyego-api';
 import { Vehicle, VehicleAction } from '../../static/types/vehicles';
 
 import { selectLocationPermission } from '../selectors/permissions';
-import { PermissionStatus } from '../../static/types/permissions';
+import {
+  PermissionStatus,
+  PermissionsAction,
+} from '../../static/types/permissions';
 
 import VehicleMarker from './VehicleMarker';
 import {
@@ -27,8 +26,6 @@ const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.03;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-const POSITION_UPDATE_INTERVAL = 30000; //30s;
-
 const Map: React.FC = () => {
   const dispatch = useDispatch();
   const dispatchSetVehicles = (vehicles: Vehicle[]) =>
@@ -41,15 +38,17 @@ const Map: React.FC = () => {
       type: VehicleAction.SET_AVAILABLE_VEHICLES,
       payload: { vehicles },
     });
+  const dispatchSetLocationPermission = (permission: PermissionStatus) =>
+    dispatch({
+      type: PermissionsAction.SET_LOCATION_PERMISSION,
+      payload: { permission },
+    });
 
   const vehicles = useSelector(selectVehicles);
-  // const availableVehicles = useSelector(selectAvailableVehicles);
   const selectedVehicleId = useSelector(selectSelectedVehicleId);
   const locationPermission = useSelector(selectLocationPermission);
 
   const [currentPosition, setCurrentPosition] = useState<LatLng>();
-  const [selected, setSelected] = useState<Vehicle['id']>();
-  const [errorMessage, setErrorMessage] = useState<string>();
 
   const currentRegion = {
     latitude: currentPosition?.latitude || 0,
@@ -67,6 +66,7 @@ const Map: React.FC = () => {
         }),
       error => {
         console.error(error.message);
+        dispatchSetLocationPermission(PermissionStatus.REJECTED);
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 1000 },
     );
@@ -74,15 +74,6 @@ const Map: React.FC = () => {
   useEffect(() => {
     if (locationPermission === PermissionStatus.ACCEPTED) {
       updateCurrentPosition();
-
-      // const interval = setInterval(
-      //   updateCurrentPosition,
-      //   POSITION_UPDATE_INTERVAL,
-      // );
-
-      // return () => {
-      //   clearInterval(interval);
-      // };
     }
   }, [locationPermission]);
 
@@ -119,7 +110,6 @@ const Map: React.FC = () => {
       <MapView
         style={styles.map}
         initialRegion={currentRegion}
-        // region={currentRegion}
         provider={PROVIDER_GOOGLE}
         zoomControlEnabled
         showsUserLocation
@@ -145,12 +135,6 @@ const Map: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   width: '100%',
-  //   height: '80%',
-  //   borderColor: 'red',
-  //   borderWidth: 2,
-  // },
   map: {
     margin: 20,
     width: '100%',

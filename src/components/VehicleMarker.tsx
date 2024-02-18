@@ -1,17 +1,13 @@
-import React, { memo, useCallback, useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Marker, LatLng } from 'react-native-maps';
+
+import { getVehicleIcon } from '../helpers/vehicle-marker';
 import {
   Vehicle,
   VehicleAction,
   VehicleStatus,
 } from '../../static/types/vehicles';
-import {
-  blackScooterIcon,
-  greenScooterIcon,
-  orangeScootericon,
-  redScooterIcon,
-} from '../../static/images';
-import { useDispatch } from 'react-redux';
 
 interface VehicleMarkerProps {
   id: Vehicle['id'];
@@ -19,24 +15,6 @@ interface VehicleMarkerProps {
   selected?: boolean;
   status: VehicleStatus;
 }
-
-const getVehicleIcon = (
-  selected: VehicleMarkerProps['selected'],
-  status: VehicleMarkerProps['status'],
-) => {
-  if (selected) {
-    return greenScooterIcon;
-  } else {
-    switch (status) {
-      case VehicleStatus.AVAILABLE:
-        return orangeScootericon;
-      case VehicleStatus.BOOKED:
-        return blackScooterIcon;
-      default:
-        return redScooterIcon;
-    }
-  }
-};
 
 const VehicleMarker: React.FC<VehicleMarkerProps> = ({
   id,
@@ -68,4 +46,4 @@ const VehicleMarker: React.FC<VehicleMarkerProps> = ({
   );
 };
 
-export default memo(VehicleMarker);
+export default VehicleMarker;

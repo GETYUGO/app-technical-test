@@ -1,7 +1,6 @@
 import Geolocation from 'react-native-geolocation-service';
 import { LatLng } from 'react-native-maps';
 
-// setCurrentPosition: React.Dispatch<React.SetStateAction<LatLng | undefined>>,
 export const getCurrentPosition: () => Promise<
   LatLng | Error | undefined
 > = async () => {

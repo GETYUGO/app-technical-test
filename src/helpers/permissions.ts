@@ -13,5 +13,6 @@ export const requestLocationPermission = async () => {
     }
   } else {
     // TODO: request permission for other platforms
+    return PermissionStatus.REJECTED;
   }
 };
