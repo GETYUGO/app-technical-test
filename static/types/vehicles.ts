@@ -20,4 +20,6 @@ export interface Vehicle {
 
 export enum VehicleAction {
   SET_VEHICLES = 'vehicles/setVehicles',
+  SET_AVAILABLE_VEHICLES = 'vehicles/setAvailableVehicles',
+  SET_SELECTED_VEHICLE_ID = 'vehicles/setSelectedVehicleId',
 }

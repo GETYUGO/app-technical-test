@@ -1,15 +1,15 @@
 import thunk from 'redux-thunk';
 import { configureStore } from '@reduxjs/toolkit';
 
+import permissions from './reducers/permissions';
 import vehicles from './reducers/vehicles';
 
 const store = configureStore({
   reducer: {
+    permissions,
     vehicles,
   },
-  middleware: [
-    thunk,
-  ],
+  middleware: [thunk],
   devTools: process.env.NODE_ENV !== 'production',
 });
 

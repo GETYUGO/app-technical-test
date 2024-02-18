@@ -2,7 +2,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
 ## Step 1: Start the Metro Server
 
@@ -46,34 +46,21 @@ If everything is set up _correctly_, you should see your new app running in your
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modifying your App
+# Additional comments
 
-Now that you have successfully run the app, let's modify it.
+## ToDo:
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+- Create custom hooks for using redux dispatchers and selectors.
+- Add retry option for getting location permissions, in case they where rejected. The same for API data fetching in case of server error
+- Update current location as user moves. I might need to define a new logic for the bottom panel.
+- Remove KEY in `AndroidManifest.xml` and inject it from `local.properties`.
+- Google Maps sometimes shows a layer with black street when zooming in. Investigate why this is happening and fix it.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+## Posible additional features:
 
-## Congratulations! :tada:
+- Fefore fetchingg vehicle data, detect current city and request only vehicles available on that city.
 
-You've successfully run and modified your React Native App. :partying_face:
+## Behaviour:
 
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+The user can select available scooters by using the buttons in the bottom panel or by clicking on a marker.  
+If the user selects a scooter which distance excedes 1200m, it will be selected and the information will appear on the buttom panel. However it would not be possible using the panel buttons the same way. The right button will be dissabled and the left one will be enable but this time it will select the closest scooter available.
