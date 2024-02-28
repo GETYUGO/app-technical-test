@@ -116,7 +116,7 @@ const Map: React.FC = () => {
         showsUserLocation
         moveOnMarkerPress={false}
       >
-        {vehicles?.length &&
+        {vehicles?.length > 0 &&
           vehicles.map(vehicle => {
             return (
               <VehicleMarker
