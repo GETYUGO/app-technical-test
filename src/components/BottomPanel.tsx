@@ -47,33 +47,41 @@ const BottomPanel: React.FC = () => {
     }
   };
   const handlePressNext = () => {
-    selectedVehicleIndex !== undefined &&
-      selectedVehicleIndex < nearestAvailableVehiclesIds?.length - 1 &&
+    if (
+      selectedVehicleIndex !== undefined &&
+      selectedVehicleIndex < nearestAvailableVehiclesIds?.length - 1
+    ) {
       dispatchSetSelectedVehicleId(
         nearestAvailableVehiclesIds[selectedVehicleIndex + 1],
       );
+    }
   };
 
   useEffect(() => {
-    availableVehicles?.length &&
+    if (availableVehicles?.length) {
       setNearestAvailableVehiclesIds(
         getIds(
           sortByDistance(filterByDistance(availableVehicles, LIMIT_DISTANCE)),
         ),
       );
+    }
   }, [availableVehicles]);
 
   useEffect(() => {
-    nearestAvailableVehiclesIds?.length &&
+    if (nearestAvailableVehiclesIds?.length) {
       dispatchSetSelectedVehicleId(nearestAvailableVehiclesIds[0]);
+    }
   }, [nearestAvailableVehiclesIds]);
 
   useEffect(() => {
-    selectedVehicleId !== undefined &&
-      nearestAvailableVehiclesIds?.length &&
+    if (
+      selectedVehicleId !== undefined &&
+      nearestAvailableVehiclesIds?.length
+    ) {
       setSelectedVehicleIndex(
         nearestAvailableVehiclesIds.indexOf(selectedVehicleId),
       );
+    }
   }, [nearestAvailableVehiclesIds, selectedVehicleId]);
 
   return (
